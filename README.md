@@ -1,10 +1,10 @@
-# parcel-scss-boilerplate
+# silverscreen-api-fetch-sample
 
 This is a boilerplate for web apps built using HTML, CSS/Scss and JavaScript and uses parcel bundler
 
-## How to setup the boilerplate?
+## How to setup the project?
 
-1. After downloading the contents of the Github repository or forking it, open the `parcel-scss-boilerplate` folder in VSCode, then run the following command to install all required node dependencies (parcel & sass):
+1. After downloading the contents of the Github repository or forking it, open the `silverscreen-api-fetch-sample` folder in VSCode, then run the following command to install all required node dependencies (parcel & sass):
 
 ```npm
 npm install
@@ -16,6 +16,9 @@ npm install
 5. Scroll down to find the setting `Dartsass: Sass Bin Path` and set the path to `node_modules\sass\sass.js`.
 6. Set the `Dartsass: Target Directory` path to `./src/css`.
 7. Now, right click on the `src/scss` folder and click on the `DartSass: Sass Watch`.
+8. Add a new file in the `silverscreen-api-fetch-sample` folder and name it `.env`.
+9. Add the following content to the `.env` file that you just created: `SILVERSCREEN_FETCH_SAMPLE_API_KEY=your_api_key`.
+10. Replace the `your_api_key` with the API key you got from [Movie DB API](https://www.themoviedb.org/).
 
 ## How to launch the application
 
