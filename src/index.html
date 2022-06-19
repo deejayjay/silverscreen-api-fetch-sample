@@ -15,16 +15,48 @@
       content="A sample app that uses fetch API to get movie data."
     />
 
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Signika:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- User Styles -->
     <link rel="stylesheet" href="css/styles.css" />
 
     <!-- Import JavaScript files -->
-    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/index-simple.js"></script>
   </head>
   <body>
-    <main>
-      <h1>Movie Data</h1>
-      <section id="moviesContainer"></section>
+    <header class="header">
+      <section class="header-inner">
+        <h1 class="brand">
+          <i class="bi bi-camera-reels brand-icon"></i>Movie Data
+        </h1>
+        <p class="tagline">All movie data your need in one place...</p>
+      </section>
+    </header>
+    <main class="main">
+      <section id="moviesContainer" class="movies-container"></section>
     </main>
+    <footer class="footer">
+      <section class="footer-inner">
+        <h2 class="sr-only">Copyright information</h2>
+        <p>
+          &copy; 2022
+          <a href="https://github.com/deejayjay"
+            >deejayjay on <i class="bi bi-github"></i
+          ></a>
+        </p>
+      </section>
+    </footer>
   </body>
 </html>

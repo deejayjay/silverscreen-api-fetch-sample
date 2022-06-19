@@ -20,7 +20,7 @@ async function init() {
     // Extract only the title, release date, and poster image Url
     upcomingMovieData = allUpcomingMovieData.map((movie) => {
       return {
-        // id: id,
+        id: movie.id,
         title: movie.title,
         releaseDate: movie.release_date,
         posterUrl: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
@@ -34,12 +34,19 @@ async function init() {
   }
 
   // Add the movie data to the page
-  for (const { title, releaseDate, posterUrl } of upcomingMovieData) {
+  for (const { id, title, releaseDate, posterUrl } of upcomingMovieData) {
     // title, releaseDate & posterUrl are extracted using object destructuring
     const template = `
-                        <h3>${title}</h3>
-                        <p>${releaseDate}</p>
-                        <img src="${posterUrl}" alt="Poster of ${title}">
+      <div class="movie-card" data-movie-id="${id}">
+        <h3 class="movie-title">${title}</h3>
+        <div class="movie-poster-wrapper">
+          <p class="movie-release-date">Released on: ${releaseDate}</p>
+          <img class="movie-poster" src="${posterUrl}" alt="Poster of ${title}">
+          <div class="movie-overlay">
+            <a href="./movie-details?movieId=${id}">View More</a>
+          </div>
+        </div>
+      </div>
                       `;
     document
       .getElementById("moviesContainer")
