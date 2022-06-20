@@ -7,18 +7,23 @@ async function init() {
   const API_KEY = process.env.SILVERSCREEN_FETCH_SAMPLE_API_KEY;
 
   // Gets all movie data from the API
-  let allUpcomingMovieData, upcomingMovieData;
+  let allUpcomingMoviesData, upcomingMoviesData;
 
   // If the upcoming movies data is not already stored in localStorage,
   // fetch the data from the MovieDb API
   const retrievedData = localStorage.getItem("upcoming_movies");
+  const lastQueryTime = +localStorage.getItem("upcoming_lastQueryTime"); // Prefix + is added to convert the value to Number
+  const currentTime = Date.now();
+  const timeDiffInSeconds = (currentTime - lastQueryTime) / 1000;
 
-  // No movie data in localStorage
-  if (!retrievedData) {
-    allUpcomingMovieData = await getMovieData(URL, API_KEY);
+  // If there is no movie data in localStorage or
+  // it has been 8 hours (28800 seconds) or more since the last query
+  if (!retrievedData || timeDiffInSeconds >= 28800) {
+    allUpcomingMoviesData = await getMovieData(URL, API_KEY);
+    console.log(`Fetched Movie Data:`, allUpcomingMoviesData);
 
     // Extract only the title, release date, and poster image Url
-    upcomingMovieData = allUpcomingMovieData.map((movie) => {
+    upcomingMoviesData = allUpcomingMoviesData.map((movie) => {
       return {
         id: movie.id,
         title: movie.title,
@@ -27,15 +32,20 @@ async function init() {
       };
     });
 
-    localStorage.setItem("upcoming_movies", JSON.stringify(upcomingMovieData));
+    // Store the Timestamp for when the movie data was fetched to the local storage
+    const queryTime = Date.now();
+    localStorage.setItem("upcoming_lastQueryTime", queryTime);
+    localStorage.setItem("upcoming_movies", JSON.stringify(upcomingMoviesData));
   } else {
     // Movie data is already in localStorage. Just need to parse it
-    upcomingMovieData = JSON.parse(retrievedData);
+    upcomingMoviesData = JSON.parse(retrievedData);
   }
 
   // Add the movie data to the page
-  for (const { id, title, releaseDate, posterUrl } of upcomingMovieData) {
-    // title, releaseDate & posterUrl are extracted using object destructuring
+  for (const movieData of upcomingMoviesData) {
+    // id, title, releaseDate & posterUrl are extracted using object destructuring
+    const { id, title, releaseDate, posterUrl } = movieData;
+
     const template = `
       <div class="movie-card" data-movie-id="${id}">
         <h3 class="movie-title">${title}</h3>
